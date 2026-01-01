@@ -57,10 +57,57 @@
         <script src="./resources/ol.js"></script>
         <script src="./resources/ol-layerswitcher.js"></script>
         <script src="resources/photon-geocoder-autocomplete.min.js"></script>
-        <script src="layers/hachichiban_1.js"></script>
-        <script src="styles/hachichiban_1_style.js"></script>
+        <script src="layers/hachichibanline_1.js"></script><script src="layers/hachichibantext_2.js"></script>
+        <script src="styles/hachichibanline_1_style.js"></script><script src="styles/hachichibantext_2_style.js"></script>
         <script src="./layers/layers.js" type="text/javascript"></script> 
         <script src="./resources/Autolinker.min.js"></script>
-        <script src="./resources/qgis2web.js"></script>        
+        <script src="./resources/qgis2web.js"></script>
+
+       
+    <!-- 地番検索パネル -->
+    <div id="chibanSearchPanel" style="
+      position:absolute;
+      top:10px;
+      left:50px;
+      z-index:1000;
+      background:#fff;
+      padding:10px;
+      border:1px solid #999;
+      border-radius:4px;
+      width:120px;
+      font-size:12px;
+    ">
+      <div style="font-weight:bold; margin-bottom:5px;">地番検索</div>
+
+      <!-- 大字 -->
+      <label>大字</label>
+      <select id="azaSelect" style="width:100%; box-sizing:border-box;">
+        <option value="">選択してください</option>
+        <option value="大賀郷">大賀郷</option>
+        <option value="三根">三根</option>
+        <option value="樫立">樫立</option>
+        <option value="中之郷">中之郷</option>
+        <option value="末吉">末吉</option>
+      </select>
+
+      <!-- 地番 -->
+      <label style="margin-top:5px; display:block;">地番</label>
+      <input type="text" id="chibanInput"
+             placeholder="例：70"
+             style="width:100%; box-sizing:border-box;">
+
+      <button onclick="searchChiban()" style="margin-top:6px; width:100%;">
+        検索
+      </button>
+
+      <div id="chibanResult"
+           style="margin-top:5px; max-height:150px; overflow:auto;"></div>
+
+      <button onclick="zoomToSelectedChiban()" style="margin-top:5px; width:100%;">
+        地番へズーム
+      </button>
+    </div>
+
+		
     </body>
 </html>
