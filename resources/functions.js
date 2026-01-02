@@ -274,7 +274,7 @@ function moveToCurrentLocation() {
       // 地図移動
       map.getView().animate({
         center: coord,
-        zoom: 17,
+        //zoom: 17,
         duration: 500
       });
 
@@ -325,3 +325,4 @@ function moveToCurrentLocation() {
     }
   );
 }
+
