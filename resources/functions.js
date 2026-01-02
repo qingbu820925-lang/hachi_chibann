@@ -253,5 +253,3 @@ function zoomToSelectedChiban() {
 
   }, 600);
 }
-
-
