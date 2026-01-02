@@ -22,8 +22,9 @@ var lyr_hachichibanline_1 = new ol.layer.Vector({
                 declutter: false,
                 source:jsonSource_hachichibanline_1, 
                 style: style_hachichibanline_1,
-                popuplayertitle: 'hachichiban-line',
-                interactive: true,
+                //popuplayertitle: 'hachichiban-line',
+                popuplayertitle: '地番は',
+				interactive: true,
                 title: '<img src="styles/legend/hachichibanline_1.png" /> hachichiban-line'
             });
 var format_hachichibantext_2 = new ol.format.GeoJSON();
