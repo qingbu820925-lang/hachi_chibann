@@ -66,18 +66,34 @@
        
     <!-- 地番検索パネル -->
     <div id="chibanSearchPanel" style="
-      position:absolute;
-      top:10px;
-      left:50px;
-      z-index:1000;
-      background:#fff;
-      padding:10px;
-      border:1px solid #999;
-      border-radius:4px;
-      width:120px;
-      font-size:12px;
+		position:absolute;
+		top:10px;
+		left:50px;
+		z-index:1000;
+		background:#fff;
+		border:1px solid #999;
+		border-radius:4px;
+		width:260px;
+		font-size:12px;
     ">
-      <div style="font-weight:bold; margin-bottom:5px;">地番検索</div>
+
+  <!-- タイトル＋開閉ボタン -->
+      <div style="
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+			background:#f0f0f0;
+			padding:6px;
+			cursor:pointer;
+		" onclick="toggleChibanPanel()">
+			<span style="font-weight:bold;">地番検索</span>
+			<span id="chibanToggleIcon">－</span>
+	   </div>
+
+	<!-- 中身 -->
+	<div id="chibanPanelBody" style="padding:10px;">
+    <!-- ここに既存の検索フォーム（大字・地番・ボタン等）をそのまま入れる -->
+
 
       <!-- 大字 -->
       <label>大字</label>
@@ -108,6 +124,11 @@
       </button>
     </div>
 
+	 </div>
+    </div>
+	
+
 		
     </body>
 </html>
+
