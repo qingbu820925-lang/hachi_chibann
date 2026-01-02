@@ -187,6 +187,22 @@ function searchChiban() {
   }
 }
 
+function toggleChibanPanel() {
+  var body = document.getElementById('chibanPanelBody');
+  var icon = document.getElementById('chibanToggleIcon');
+
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    icon.textContent = '－';
+  } else {
+    body.style.display = 'none';
+    icon.textContent = '＋';
+  }
+}
+
+
+
+
 // 選択地番へズーム
 var centerMarker = null;
 
@@ -237,3 +253,5 @@ function zoomToSelectedChiban() {
 
   }, 600);
 }
+
+
