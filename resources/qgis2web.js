@@ -531,11 +531,13 @@ var bottomAttribution = new ol.control.Attribution({
 });
 map.addControl(bottomAttribution);
 
+	//<a href="https://github.com/qgis2web/qgis2web">qgis2web</a> &middot;
+	//<a href="https://openlayers.org/">OpenLayers</a> &middot;
+	//<a href="https://qgis.org/">QGIS</a>	
+
 var attributionList = document.createElement('li');
 attributionList.innerHTML = `
-	<a href="https://github.com/qgis2web/qgis2web">qgis2web</a> &middot;
-	<a href="https://openlayers.org/">OpenLayers</a> &middot;
-	<a href="https://qgis.org/">QGIS</a>	
+	<a href="https://www.soumu.metro.tokyo.lg.jp/09hatijou/kakuka_top/b-top">東京都八丈支庁産業課</a> &middot;
 `;
 var bottomAttributionUl = bottomAttribution.element.querySelector('ul');
 if (bottomAttributionUl) {
@@ -569,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //zoom
     var zoomControl = document.getElementsByClassName('ol-zoom')[0];
     if (zoomControl) {
-        topLeftContainerDiv.appendChild(zoomControl);
+       topLeftContainerDiv.appendChild(zoomControl);
     }
     //geolocate
     if (typeof geolocateControl !== 'undefined') {
