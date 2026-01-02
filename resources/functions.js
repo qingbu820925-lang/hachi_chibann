@@ -32,6 +32,9 @@ var createTextStyle = function(feature, resolution, labelText, labelFont,
 
     return textStyle;
 };
+// 現在地
+var currentLocationMarker = null;
+
 
 // 中央マーカー用 Overlay
 var centerMarker = new ol.Overlay({
@@ -252,4 +255,73 @@ function zoomToSelectedChiban() {
     }, 3000);
 
   }, 600);
+}
+
+function moveToCurrentLocation() {
+
+  if (!navigator.geolocation) {
+    alert('このブラウザでは現在地取得ができません');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      var lon = position.coords.longitude;
+      var lat = position.coords.latitude;
+
+      var coord = ol.proj.fromLonLat([lon, lat]);
+
+      // 地図移動
+      map.getView().animate({
+        center: coord,
+        zoom: 17,
+        duration: 500
+      });
+
+      // 移動後に青ピン表示
+      setTimeout(function () {
+
+        // 初回のみ Overlay 作成
+        if (!currentLocationMarker) {
+          var el = document.createElement('div');
+
+          // 青いピン風デザイン
+          el.style.width = '10px';
+          el.style.height = '10px';
+          el.style.background = '#1e90ff';
+          //el.style.borderRadius = '50% 50% 50% 0';
+          //el.style.transform = 'rotate(-45deg)';
+          el.style.border = '2px solid #ffffff';
+          el.style.boxShadow = '0 0 6px rgba(30,144,255,0.9)';
+          el.style.pointerEvents = 'none';
+          el.style.borderRadius = '50%';
+          el.style.transform = 'none';
+
+          currentLocationMarker = new ol.Overlay({
+            element: el,
+            positioning: 'bottom-center',
+            stopEvent: false
+          });
+
+          map.addOverlay(currentLocationMarker);
+        }
+
+        currentLocationMarker.setPosition(coord);
+
+        // 10秒後に消す
+        setTimeout(function () {
+          currentLocationMarker.setPosition(undefined);
+        }, 10000);
+
+      }, 500);
+    },
+    function () {
+      alert('現在地を取得できませんでした');
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
 }
