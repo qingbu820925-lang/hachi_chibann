@@ -154,41 +154,58 @@ function searchChiban() {
   var searchText = aza + chiban;
 
   var features = lyr_hachichibantext_2.getSource().getFeatures();
-  var hitCount = 0;
+  var results = [];
 
+  // ① まずヒットした feature を配列に集める
   features.forEach(function (feature) {
     var azachiban = feature.get('azachiban');
-
     if (azachiban && azachiban.toString().includes(searchText)) {
-      hitCount++;
-
-      var div = document.createElement('div');
-      div.textContent = azachiban;
-      div.style.cursor = 'pointer';
-      div.style.padding = '2px';
-      div.style.borderBottom = '1px solid #ddd';
-
-      div.onclick = function () {
-        selectedChibanFeature = feature;
-
-        // 選択状態の見た目
-        Array.from(resultDiv.children).forEach(function (c) {
-          c.style.background = '';
-        });
-        div.style.background = '#cce5ff';
-		
-	    blinkFeature(feature);
-
-      };
-
-      resultDiv.appendChild(div);
+      results.push(feature);
     }
   });
 
-  if (hitCount === 0) {
+  // ② 地番を「若い順」にソート
+  results.sort(function (a, b) {
+    var aVal = a.get('azachiban');
+    var bVal = b.get('azachiban');
+
+    var aNum = parseInt(aVal.replace(/[^0-9]/g, ''), 10);
+    var bNum = parseInt(bVal.replace(/[^0-9]/g, ''), 10);
+
+    return aNum - bNum;
+  });
+
+  // ③ ソート後に一覧を作成
+  results.forEach(function (feature) {
+    var azachiban = feature.get('azachiban');
+
+    var div = document.createElement('div');
+    div.textContent = azachiban;
+    div.style.cursor = 'pointer';
+    div.style.padding = '2px';
+    div.style.borderBottom = '1px solid #ddd';
+
+    div.onclick = function () {
+      selectedChibanFeature = feature;
+
+      // 選択状態の見た目
+      Array.from(resultDiv.children).forEach(function (c) {
+        c.style.background = '';
+      });
+      div.style.background = '#cce5ff';
+
+      blinkFeature(feature);
+    };
+
+    resultDiv.appendChild(div);
+  });
+
+  // ④ 結果なし
+  if (results.length === 0) {
     resultDiv.innerHTML = '該当する地番がありません';
   }
 }
+
 
 function toggleChibanPanel() {
   var body = document.getElementById('chibanPanelBody');
@@ -274,7 +291,7 @@ function moveToCurrentLocation() {
       // 地図移動
       map.getView().animate({
         center: coord,
-        //zoom: 17,
+        zoom: 17,
         duration: 500
       });
 
@@ -325,4 +342,3 @@ function moveToCurrentLocation() {
     }
   );
 }
-
