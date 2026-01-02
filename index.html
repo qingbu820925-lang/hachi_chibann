@@ -86,12 +86,12 @@
 			padding:6px;
 			cursor:pointer;
 		" onclick="toggleChibanPanel()">
-			<span style="font-weight:bold;">-地番検索-</span>
+			<span style="font-weight:bold;">地番検索</span>
 			<span id="chibanToggleIcon">－</span>
 	   </div>
 
 	<!-- 中身 -->
-	<div id="chibanPanelBody" style="padding:10px;" display:none;>
+	<div id="chibanPanelBody" style="padding:10px;">
     <!-- ここに既存の検索フォーム（大字・地番・ボタン等）をそのまま入れる -->
 
 
@@ -127,6 +127,37 @@
 	 </div>
     </div>
 	
+<!-- 現在地ボタン -->
+<div id="locationButton"
+     onclick="moveToCurrentLocation()"
+     style="
+       position:absolute;
+       top:10px;
+       right:10px;
+       z-index:1000;
+       background:#fff;
+       border:1px solid #999;
+       border-radius:4px;
+       padding:6px 10px;
+       font-size:12px;
+       cursor:pointer;
+       box-shadow:0 1px 4px rgba(0,0,0,0.3);
+       display:flex;
+       align-items:center;
+       gap:6px;
+     ">
+  <!-- 青い丸 -->
+  <span style="
+    display:inline-block;
+    width:10px;
+    height:10px;
+    background:#1e90ff;
+    border-radius:50%;
+    box-shadow:0 0 4px rgba(30,144,255,0.7);
+  "></span>
+  現在地
+</div>
+
 
 		
     </body>
