@@ -2,8 +2,9 @@ var wms_layers = [];
 
 
         var lyr_GoogleMAP_0 = new ol.layer.Tile({
-            'title': 'GoogleMAP 航空写真',
-            'opacity': 1.000000,
+            title: 'GoogleMAP 航空写真',
+			type: 'base',          // ★追加
+            opacity: 1.000000,
             
             
             source: new ol.source.XYZ({
@@ -11,6 +12,18 @@ var wms_layers = [];
                 url: 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}'
             })
         });
+		var lyr_GoogleMAP_STD = new ol.layer.Tile({
+    　　　　　　　　title: 'GoogleMAP 標準地図',
+            type: 'base',                 // ★重要（ベースレイヤ扱い）
+            opacity: 1.0,
+            visible: false,               // 初期は非表示
+            source: new ol.source.XYZ({
+            attributions: ' ',
+            　　　　url: 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
+    　　　　　　　　})
+　　　　　　　　});
+
+		
 var format_hachichibanline_1 = new ol.format.GeoJSON();
 var features_hachichibanline_1 = format_hachichibanline_1.readFeatures(json_hachichibanline_1, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
@@ -44,7 +57,7 @@ var lyr_hachichibantext_2 = new ol.layer.Vector({
             });
 
 lyr_GoogleMAP_0.setVisible(true);lyr_hachichibanline_1.setVisible(true);lyr_hachichibantext_2.setVisible(true);
-var layersList = [lyr_GoogleMAP_0,lyr_hachichibanline_1,lyr_hachichibantext_2];
+var layersList = [lyr_GoogleMAP_0,lyr_GoogleMAP_STD,lyr_hachichibanline_1,lyr_hachichibantext_2];
 lyr_hachichibanline_1.set('fieldAliases', {'azachiban': 'azachiban', });
 lyr_hachichibantext_2.set('fieldAliases', {'azachiban': 'azachiban', });
 lyr_hachichibanline_1.set('fieldImages', {'azachiban': 'TextEdit', });
