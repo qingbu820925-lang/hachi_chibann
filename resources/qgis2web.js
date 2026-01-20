@@ -8,6 +8,13 @@ var map = new ol.Map({
     })
 });
 
+var layerSwitcher = new ol.control.LayerSwitcher({
+    activationMode: 'click',   // クリックで開く
+    startActive: false,        // 初期は閉じる
+    tipLabel: 'レイヤ切替'
+});
+map.addControl(layerSwitcher);
+
 //initial view - epsg:3857 coordinates if not "Match project CRS"
 map.getView().fit([15561072.876597, 3909705.148915, 15561596.571228, 3910028.732822], map.getSize());
 
