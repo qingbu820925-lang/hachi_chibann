@@ -91,26 +91,52 @@ html, body, #map {
 </div>
 
 <script>
+/* ===== 設定 ===== */
 const CORRECT_PASSWORD = "8JO-4cho";
+const LOGIN_TIME_KEY = "hachijo_login_time";
+//const EXPIRE_MS = 24 * 60 * 60 * 1000; // 1日（24時間）
+const EXPIRE_MS = 24 * 30 * 60 * 60 * 1000; // 30日
 
+
+/* ===== 初期チェック ===== */
+window.addEventListener("load", () => {
+    const loginTime = localStorage.getItem(LOGIN_TIME_KEY);
+
+    if (loginTime) {
+        const now = Date.now();
+        const elapsed = now - Number(loginTime);
+
+        if (elapsed < EXPIRE_MS) {
+            // 有効期限内 → ログイン済み
+            document.getElementById("loginOverlay").style.display = "none";
+            return;
+        } else {
+            // 期限切れ → 削除
+            localStorage.removeItem(LOGIN_TIME_KEY);
+        }
+    }
+});
+
+/* ===== パスワード判定 ===== */
 function checkPassword() {
     const input = document.getElementById("passwordInput").value;
+
     if (input === CORRECT_PASSWORD) {
+        localStorage.setItem(LOGIN_TIME_KEY, Date.now()); // ★ ログイン時刻保存
         document.getElementById("loginOverlay").style.display = "none";
     } else {
         document.getElementById("loginError").style.display = "block";
     }
 }
 
-// ===== Enterキーでログインできるようにする =====
+/* ===== Enterキー対応 ===== */
 document.getElementById("passwordInput").addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
-        e.preventDefault();   // 余計な送信防止
-        checkPassword();     // ボタンと同じ処理
+        e.preventDefault();
+        checkPassword();
     }
 });
 </script>
-
 
 <script src="resources/qgis2web_expressions.js"></script>
 <script src="./resources/functions.js"></script>
@@ -176,7 +202,6 @@ border-radius:50%; box-shadow:0 0 4px rgba(30,144,255,0.7);
 "></span>
 私は今ココ
 </div>
-
 
 </body>
 </html>
