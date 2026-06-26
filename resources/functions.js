@@ -269,7 +269,7 @@ function zoomToSelectedChiban() {
     // 3秒後に消す
     setTimeout(function () {
       centerMarker.setPosition(undefined);
-    }, 3000);
+    }, 180000);
 
   }, 600);
 }
@@ -328,7 +328,7 @@ function moveToCurrentLocation() {
         // 10秒後に消す
         setTimeout(function () {
           currentLocationMarker.setPosition(undefined);
-        }, 10000);
+        }, 180000);
 
       }, 500);
     },
